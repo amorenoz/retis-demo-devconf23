@@ -1,0 +1,9 @@
+version: 1.0
+name: drop
+about: Drop monitor-like
+collect:
+  - name: Default
+    args:
+      collectors: skb-drop,skb
+      stack: ~
+---

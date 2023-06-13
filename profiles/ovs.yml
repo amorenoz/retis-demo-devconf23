@@ -1,0 +1,32 @@
+version: 1.0
+name: ovs
+about: Track packets through OVS
+collect:
+  - args:
+      collectors:
+        - skb
+        - skb-tracking
+        - ovs
+      ovs-track: ~
+      skb-sections: eth,ns
+      probe:
+        - kprobe:ovs_vport_receive
+        - kprobe:ovs_dp_process_packet
+        - kprobe:veth_xmit 
+        - kprobe:skb_scrub_packet
+        - tp:net:netif_receive_skb
+---
+version: 1.0
+name: udp
+about: Show and track UDP packets
+collect:
+  - args:
+      collectors:
+        - skb
+      skb-sections: ip,udp
+      probe:
+        - kprobe:ip_rcv
+        - kprobe:ip_output
+        - kprobe:udp_rcv
+        - kprobe:udp_gro_receive
+        - kprobe:udp_queue_rcv_skb

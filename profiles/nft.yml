@@ -1,0 +1,33 @@
+version: 1.0
+name: nft
+about: Track netfilter tables.
+collect:
+  - name: Default
+    args:
+      collectors:
+        - skb
+        - skb-tracking
+        - skb-drop
+        - nft
+      allow-system-changes: ~
+      probe:
+        - kprobe:nf_nat_manip_pkt
+        - kprobe:nf_nat_ipv4_pre_routing
+        - kprobe:nf_conntrack_in
+        - kprobe:nf_conntrack_icmp_packet
+        - kprobe:nf_conntrack_udp_packet
+        - kprobe:nf_conntrack_tcp_packet
+        - kprobe:nf_conntrack_dccp_packet
+        - kprobe:nf_conntrack_gre_packet
+        - kprobe:nf_conntrack_sctp_packet
+        - kprobe:ip_rcv
+        - kprobe:ip_output
+        - kprobe:ip_forward
+        - kprobe:ip_forward_finish
+        - kprobe:nft_do_chain_netdev
+        - kprobe:nft_do_chain_ipv4
+        - kprobe:nft_do_chain_ipv6
+        - kprobe:nft_do_chain_inet
+        - kprobe:nft_do_chain_inet_ingress
+        - kprobe:nft_do_chain_bridge
+        - kprobe:nft_do_chain_arp
